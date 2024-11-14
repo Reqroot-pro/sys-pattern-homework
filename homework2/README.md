@@ -69,24 +69,58 @@ pipeline {
 
 ---
 
-### Задание 3
-
-`Приведите ответ в свободной форме........`
-
-1. `Заполните здесь этапы выполнения, если требуется ....`
-2. `Заполните здесь этапы выполнения, если требуется ....`
-3. `Заполните здесь этапы выполнения, если требуется ....`
-4. `Заполните здесь этапы выполнения, если требуется ....`
-5. `Заполните здесь этапы выполнения, если требуется ....`
-6. 
+### Задание 3 
 
 ```
-Поле для вставки кода...
-....
-....
-....
-....
+pipeline {
+    agent any
+
+    environment {
+        GO_PATH = '/usr/local/go/bin'  // Путь к Go
+        PATH = "$GO_PATH:$PATH"  // Добавляем Go в PATH
+        NEXUS_URL = 'http://192.168.56.20:8081/repository/my_repo/'  // URL репозитория Nexus
+        NEXUS_USER = 'admin'  // Ваш логин Nexus
+        NEXUS_PASS = 'admin'  // Ваш пароль Nexus
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Клонируем репозиторий с исходным кодом
+                git 'https://github.com/netology-code/sdvps-materials.git'
+            }
+        }
+
+        stage('Build Binary') {
+            steps {
+                // Компилируем бинарный файл Go с указанными параметрами
+                sh 'CGO_ENABLED=0 GOOS=linux go build -a -installsuffix nocgo -o app'
+            }
+        }
+
+        stage('Upload to Nexus') {
+            steps {
+                script {
+                    // Загружаем скомпилированный файл в Nexus
+                    sh """
+                        curl -u $NEXUS_USER:$NEXUS_PASS --upload-file app $NEXUS_URL
+                    """
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Pipeline завершен.'
+        }
+    }
+}
+
 ```
 
-`При необходимости прикрепитe сюда скриншоты
-![Название скриншота](ссылка на скриншот)`
+![скриншот 1](https://github.com/Reqroot-pro/sys-pattern-homework/blob/main/homework2/img/5.png)
+
+
+![скриншот 2](https://github.com/Reqroot-pro/sys-pattern-homework/blob/main/homework2/img/6.png)
+
