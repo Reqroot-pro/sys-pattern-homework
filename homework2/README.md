@@ -29,8 +29,10 @@
 docker build .
 ```
 
-`При необходимости прикрепитe сюда скриншоты
+`
 ![скриншот 1](https://github.com/Reqroot-pro/sys-pattern-homework/blob/main/homework2/img/1.png)`
+
+`
 ![скриншот 2](https://github.com/Reqroot-pro/sys-pattern-homework/blob/main/homework2/img/2.png)`
 
 
