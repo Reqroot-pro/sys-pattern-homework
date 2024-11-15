@@ -25,7 +25,7 @@
 ### Задание 1
 
 
-![скриншот 1](ссылка на скриншот 1)
+![скриншот 1](https://github.com/Reqroot-pro/sys-pattern-homework/blob/main/homework8.03/img/1.png)
 
 
 ---
